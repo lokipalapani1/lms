@@ -3,24 +3,24 @@ pipeline {
 
     stages {
         stage('Git Checkout') {
-            when{
-                branch = "develop"
+            when {
+                branch "develop"
             }
             steps {
-                git branch: 'main', credentialsId: 'jenkins', git url: 'https://github.com/lokipalapani1/lms'
+                git branch: 'main', credentialsId: 'jenkinsgit', url: 'https://github.com/lokipalapani1/lms'
             }
         }
     stage('Maven Build') { 
-        when{
-                branch = "develop"
+        when {
+                branch  "develop"
             }
             steps {
                 sh 'mvn clean package'
            }
     }  
      stage('Dev Deploy') {
-         when{
-                branch = "develop"
+         when {
+                branch  "develop"
             }
             steps {
                 sshagent(['tomcat-dev']) {
